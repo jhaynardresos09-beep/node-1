@@ -28,10 +28,10 @@ if [ "$ARCH" = "s390x" ] || [ "$ARCH" = "ppc64le" ]; then
 
   case "$CXX" in
     *clang*) GN_COMPILER_OPTS="is_clang=true clang_base_path=\"/usr\" clang_use_chrome_plugins=false treat_warnings_as_errors=false" ;;
-    *) ;;
+    *) GN_COMPILER_OPTS="use_custom_libcxx=false"  ;;
   esac
   export PKG_CONFIG_PATH=$BUILD_TOOLS/pkg-config
-  gn gen -v "out.gn/$BUILD_ARCH_TYPE" --args="$GN_COMPILER_OPTS is_component_build=false is_debug=false use_custom_libcxx=false v8_target_cpu=\"$TARGET_ARCH\" target_cpu=\"$TARGET_ARCH\" v8_enable_backtrace=true $CC_WRAPPER"
+  gn gen -v "out.gn/$BUILD_ARCH_TYPE" --args="$GN_COMPILER_OPTS is_component_build=false is_debug=false v8_target_cpu=\"$TARGET_ARCH\" target_cpu=\"$TARGET_ARCH\" v8_enable_backtrace=true $CC_WRAPPER"
   ninja -v -C "out.gn/$BUILD_ARCH_TYPE" "${JOBS_ARG}" d8 cctest inspector-test
 else
   DEPOT_TOOLS_DIR="$(cd depot_tools && pwd)"
