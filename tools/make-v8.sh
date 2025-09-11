@@ -27,7 +27,7 @@ if [ "$ARCH" = "s390x" ] || [ "$ARCH" = "ppc64le" ]; then
   esac
 
   case "$CXX" in
-    *clang*) GN_COMPILER_OPTS="is_clang=true clang_base_path=\"/usr\" clang_use_chrome_plugins=false" ;;
+    *clang*) GN_COMPILER_OPTS="is_clang=true clang_base_path=\"/usr\" clang_use_chrome_plugins=false use_custom_libcxx=false" ;;
     *) GN_COMPILER_OPTS="use_custom_libcxx=false"  ;;
   esac
   export PKG_CONFIG_PATH=$BUILD_TOOLS/pkg-config
